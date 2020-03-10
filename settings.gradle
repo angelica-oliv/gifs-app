@@ -1,2 +1,5 @@
 rootProject.name='Gif Application'
 include ':app'
+include ':favorite'
+
+project(":favorite").projectDir = new File(rootDir, "feature-favorite/favorite")

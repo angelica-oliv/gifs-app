@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 /.idea/*
-app/build
+*/*/build
+*/build
