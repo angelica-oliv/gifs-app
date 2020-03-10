@@ -1,0 +1,4 @@
+ext.keys = [
+        'giphyDebug'        : 'PUT_YOUR_KEY_HERE',
+        'giphyProd'         : 'PUT_YOUR_KEY_HERE'
+]
