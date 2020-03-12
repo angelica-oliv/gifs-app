@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../versions.gradle'
+apply from: '../keys.gradle'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -10,6 +11,17 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+
+        buildConfigField("String", "GIPHY_URL", "\"https://api.giphy.com/v1/gifs/\"")
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "GIPHY_API_KEY", keys.giphyDebug)
+        }
+        release {
+            buildConfigField("String", "GIPHY_API_KEY", keys.giphyProd)
+        }
     }
 }
 
@@ -19,6 +31,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttpLogging"
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"

@@ -1,10 +1,12 @@
 package com.angelicao.network.service
 
+import com.angelicao.network.BuildConfig
 import com.angelicao.network.data.GifResponse
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface GifAPI {
     // TODO pagination API when getting
     @GET("trending")
-    suspend fun getTrendingGIFs(): GifResponse
+    suspend fun getTrendingGIFs(@Query("api_key") apiKey: String = BuildConfig.GIPHY_API_KEY): GifResponse
 }

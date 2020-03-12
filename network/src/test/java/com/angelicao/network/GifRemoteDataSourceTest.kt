@@ -12,7 +12,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "http://giphy.com")))
+private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "http://giphy.com", "title")))
 class GifRemoteDataSourceTest {
     private val gifAPI = mockk<GifAPI>()
     private val gifRemoteDataSource = GifRemoteDataSource(gifAPI)

@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../versions.gradle'
-apply from: '../keys.gradle'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -18,13 +17,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
-        debug {
-            buildConfigField("String", "GIPHY_API_KEY", keys.giphyDebug)
-        }
         release {
             minifyEnabled false
-            buildConfigField("String", "GIPHY_API_KEY", keys.giphyProd)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,8 +41,19 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "com.google.android.play:core:$versions.playcore"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
+    implementation "io.coil-kt:coil:$versions.coil"
+    implementation "org.koin:koin-android:$versions.koin"
+    implementation "org.koin:koin-android-viewmodel:$versions.koin"
 
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidXJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

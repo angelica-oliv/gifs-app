@@ -18,6 +18,7 @@ dependencies {
     implementation project(":network")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
+    implementation "org.koin:koin-android:$versions.koin"
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"

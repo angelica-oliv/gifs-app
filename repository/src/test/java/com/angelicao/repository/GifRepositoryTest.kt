@@ -12,8 +12,8 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-private val GIF_REMOTE = GifResponse(listOf(GifData("gif", "123", "http://giphy.com")))
-private val GIF_REPOSITORY_LIST = listOf(Gif("http://giphy.com"))
+private val GIF_REMOTE = GifResponse(listOf(GifData("gif", "123", "http://giphy.com", "title")))
+private val GIF_REPOSITORY_LIST = listOf(Gif("http://giphy.com", "title"))
 class GifRepositoryTest {
     private val gifRemoteDataSource = mockk<GifRemoteDataSource>()
     private val gifRepository = GifRepository(gifRemoteDataSource)
@@ -27,6 +27,7 @@ class GifRepositoryTest {
         assertEquals(GIF_REPOSITORY_LIST.size, valueReturned.size)
         GIF_REPOSITORY_LIST.first().let { gif ->
             assertEquals(gif.url, valueReturned.first().url)
+            assertEquals(gif.title, valueReturned.first().title)
             assertEquals(gif.favorite, valueReturned.first().favorite)
         }
 
