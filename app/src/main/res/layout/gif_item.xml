@@ -3,21 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_gif_list"
+    android:padding="@dimen/default_small"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/gif_image"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_small"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         tools:src="@tools:sample/avatars"/>
-
-
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -25,6 +26,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/favorite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/default_small"
+        android:layout_marginStart="@dimen/default_small"
         android:background="@color/colorPrimary"
         android:alpha="0.3"/>
 
@@ -34,6 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:padding="@dimen/default_small"
+        android:layout_marginEnd="@dimen/default_small"
+        android:layout_marginStart="@dimen/default_small"
         android:src="@drawable/ic_favorite_24"
         android:background="@android:color/transparent"
         android:tint="@color/colorGray"

@@ -46,6 +46,7 @@ dependencies {
     implementation "io.coil-kt:coil:$versions.coil"
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
+    implementation "io.coil-kt:coil-gif:$versions.coilGif"
 
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidXJunit"

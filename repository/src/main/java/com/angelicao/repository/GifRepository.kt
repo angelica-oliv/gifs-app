@@ -13,7 +13,7 @@ class GifRepository(private val gifRemoteDataSource: GifRemoteDataSource) {
 
     private fun getGifFromApiData(apiData: GifResponse): List<Gif> =
         apiData.data.map { gifData ->
-            Gif(url = gifData.embed_url ?: "",
+            Gif(url = gifData.images?.original?.url ?: "",
                 title = gifData.title ?: "")
         }
 }

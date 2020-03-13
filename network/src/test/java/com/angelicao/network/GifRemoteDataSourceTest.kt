@@ -1,6 +1,8 @@
 package com.angelicao.network
 
 import com.angelicao.network.data.GifData
+import com.angelicao.network.data.GifImage
+import com.angelicao.network.data.GifImageData
 import com.angelicao.network.data.GifResponse
 import com.angelicao.network.service.GifAPI
 import io.mockk.coEvery
@@ -12,7 +14,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "http://giphy.com", "title")))
+private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "title", GifImage(GifImageData("http://giphy.com")))))
 class GifRemoteDataSourceTest {
     private val gifAPI = mockk<GifAPI>()
     private val gifRemoteDataSource = GifRemoteDataSource(gifAPI)

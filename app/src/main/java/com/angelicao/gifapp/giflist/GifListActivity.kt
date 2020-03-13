@@ -23,7 +23,7 @@ class GifListActivity : AppCompatActivity() {
 
     private fun initViews() {
         gifList = findViewById(R.id.gif_list)
-        gifList?.layoutManager = GridLayoutManager(this, 3)
+        gifList?.layoutManager = GridLayoutManager(this, 2)
     }
 
     private fun setObservers() {
