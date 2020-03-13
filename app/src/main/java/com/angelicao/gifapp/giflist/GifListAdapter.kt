@@ -16,6 +16,7 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
+import com.bumptech.glide.Glide
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
@@ -33,38 +34,45 @@ class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
         gifList[position].run {
-            loadImageGif(url.toHttpUrl(), holder.gifImage)
+            loadImageGif(url, holder.gifImage)
             holder.gifImage.contentDescription = title
             setFavoriteButtonColor(favorite, holder.favorite)
             holder.favorite.setOnClickListener { favoriteClicked(this) }
         }
     }
 
-    private fun loadImageGif(url: HttpUrl, gifImage: ImageView) {
-        val imageLoader = ImageLoader(gifImage.context) {
-            componentRegistry {
-                if (SDK_INT >= P) {
-                    add(ImageDecoderDecoder())
-                } else {
-                    add(GifDecoder())
-                }
-            }
-        }
+    private fun loadImageGif(url: String, gifImage: ImageView) {
         val drawablePlaceholder = ContextCompat.getDrawable(gifImage.context, R.drawable.ic_image)
         drawablePlaceholder?.setTint(ContextCompat.getColor(gifImage.context, R.color.colorGray))
-        imageLoader.load(gifImage.context, url) {
-            target(gifImage)
-            placeholder(drawablePlaceholder)
-        }
+        Glide
+            .with(gifImage.context)
+            .load(url)
+            .placeholder(drawablePlaceholder)
+            .into(gifImage)
+//
+//        val imageLoader = ImageLoader(gifImage.context) {
+//            componentRegistry {
+//                if (SDK_INT >= P) {
+//                    add(ImageDecoderDecoder())
+//                } else {
+//                    add(GifDecoder())
+//                }
+//            }
+//        }
+//
+//        imageLoader.load(gifImage.context, url) {
+//            target(gifImage)
+//            placeholder(drawablePlaceholder)
+//        }
     }
-}
 
-private fun setFavoriteButtonColor(favorite: Boolean, favoriteButton: ImageButton) {
-    favoriteButton.run {
-        setColorFilter(if(favorite) {
-            ContextCompat.getColor(context, R.color.colorAccent)
-        } else {
-            ContextCompat.getColor(context, R.color.colorGray)
-        }, PorterDuff.Mode.MULTIPLY)
+    private fun setFavoriteButtonColor(favorite: Boolean, favoriteButton: ImageButton) {
+        favoriteButton.run {
+            setColorFilter(if(favorite) {
+                ContextCompat.getColor(context, R.color.colorAccent)
+            } else {
+                ContextCompat.getColor(context, R.color.colorGray)
+            }, PorterDuff.Mode.MULTIPLY)
+        }
     }
 }
