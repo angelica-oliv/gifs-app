@@ -1,3 +1,4 @@
+include ':localdata'
 rootProject.name='Gif Application'
 include ':app'
 include ':favorite'

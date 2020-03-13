@@ -29,7 +29,9 @@ class GifListActivity : AppCompatActivity() {
     private fun setObservers() {
         gifListViewModel.gifList.observe(this, Observer {
             it?.let {
-                gifList?.adapter = GifListAdapter(it)
+                gifList?.adapter = GifListAdapter(it) { gif ->
+                    gifListViewModel.onFavoriteClicked(gif)
+                }
             }
         })
     }
