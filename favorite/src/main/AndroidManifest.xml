@@ -8,5 +8,12 @@
         <dist:fusing dist:include="true" />
     </dist:module>
 
-    <application android:hasCode="false" />
+    <application>
+        <activity android:name=".FavoriteGifListActivity"
+            android:label="@string/favorite">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>

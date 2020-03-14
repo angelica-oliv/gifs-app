@@ -46,4 +46,16 @@ class GifRepository(private val gifRemoteDataSource: GifRemoteDataSource, privat
             gifDao.delete(favoriteGif)
         }
     }
+
+    suspend fun getFavoriteGif() : List<Gif> =
+        withContext(Dispatchers.IO) {
+            gifDao.getAll().map { favoriteGif ->
+                Gif(
+                    id = favoriteGif.id,
+                    url = favoriteGif.url,
+                    title = favoriteGif.title,
+                    favorite = true
+                )
+            }
+        }
 }

@@ -3,6 +3,4 @@ rootProject.name='Gif Application'
 include ':app'
 include ':favorite'
 include ':network'
-
-project(":favorite").projectDir = new File(rootDir, "feature-favorite/favorite")
 include ':repository'
