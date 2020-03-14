@@ -42,7 +42,22 @@
         android:src="@drawable/ic_favorite_24"
         android:background="@android:color/transparent"
         android:tint="@color/colorGray"
+        android:contentDescription="@string/favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ImageButton
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="@dimen/default_small"
+        android:layout_marginEnd="@dimen/default_small"
+        android:layout_marginStart="@dimen/default_small"
+        android:src="@drawable/ic_share_24"
+        android:background="@android:color/transparent"
+        android:tint="@color/colorGray"
+        android:contentDescription="@string/share"
+        app:layout_constraintEnd_toStartOf="@id/favorite"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

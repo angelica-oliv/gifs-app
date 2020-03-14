@@ -1,8 +1,6 @@
 package com.angelicao.gifapp.giflist
 
 import android.graphics.PorterDuff
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.P
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +8,15 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.api.load
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
 import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
 import com.bumptech.glide.Glide
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrl
 
-class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked: (Gif) -> Unit): RecyclerView.Adapter<GifListAdapter.GifViewHolder>() {
+class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked: (Gif) -> Unit, private val shareClicked: (Gif) -> Unit): RecyclerView.Adapter<GifListAdapter.GifViewHolder>() {
     class GifViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val gifImage: ImageView = itemView.findViewById(R.id.gif_image)
         val favorite: ImageButton = itemView.findViewById(R.id.favorite)
+        val share: ImageButton = itemView.findViewById(R.id.share)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= GifViewHolder(
@@ -38,6 +31,7 @@ class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked
             holder.gifImage.contentDescription = title
             setFavoriteButtonColor(favorite, holder.favorite)
             holder.favorite.setOnClickListener { favoriteClicked(this) }
+            holder.share.setOnClickListener { shareClicked(this) }
         }
     }
 
@@ -49,21 +43,6 @@ class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked
             .load(url)
             .placeholder(drawablePlaceholder)
             .into(gifImage)
-//
-//        val imageLoader = ImageLoader(gifImage.context) {
-//            componentRegistry {
-//                if (SDK_INT >= P) {
-//                    add(ImageDecoderDecoder())
-//                } else {
-//                    add(GifDecoder())
-//                }
-//            }
-//        }
-//
-//        imageLoader.load(gifImage.context, url) {
-//            target(gifImage)
-//            placeholder(drawablePlaceholder)
-//        }
     }
 
     private fun setFavoriteButtonColor(favorite: Boolean, favoriteButton: ImageButton) {
