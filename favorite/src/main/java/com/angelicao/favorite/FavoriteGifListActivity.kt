@@ -1,5 +1,6 @@
 package com.angelicao.favorite
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.favorite.di.FavoriteKoinComponent
 import com.angelicao.gifapp.giflist.GifListAdapter
 import com.angelicao.repository.data.Gif
+import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif_list), FavoriteKoinComponent {
@@ -28,6 +30,11 @@ class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif
 
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        SplitCompat.installActivity(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

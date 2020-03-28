@@ -2,4 +2,11 @@
     <string name="app_name">Gif Application</string>
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
+    <string name="loading">Loading</string>
+    <string name="downloading">Downloading %s</string>
+    <string name="installing">Installing %s</string>
+    <string name="loading_module">Loading module %s</string>
+    <string name="already_installed">Already installed</string>
+    <string name="starting_install">Starting install for %s</string>
+    <string name="error_for_module">Error %d for module %s</string>
 </resources>

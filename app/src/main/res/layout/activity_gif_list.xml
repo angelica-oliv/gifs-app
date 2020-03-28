@@ -12,10 +12,45 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_text"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/default_small"
         tools:listitem="@layout/gif_item"
+        tools:background="@color/colorAccent"
         tools:spanCount="2"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_small"
+        android:layout_marginStart="@dimen/default_small"
+        android:layout_marginEnd="@dimen/default_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="?android:attr/progressBarStyleHorizontal"
+        tools:progress="50"/>
+
+    <TextView
+        android:id="@+id/progress_text"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_small"
+        android:layout_marginEnd="@dimen/default_small"
+        android:layout_marginBottom="@dimen/default_small"
+        android:text="@string/loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="progress_bar,progress_text"
+        tools:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
