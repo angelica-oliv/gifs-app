@@ -16,6 +16,7 @@ android {
         versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     compileOptions {
@@ -55,6 +56,10 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidXJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+    androidTestImplementation "androidx.test:core:$versions.androidXTestCore"
+    androidTestImplementation "androidx.test:core-ktx:$versions.androidXTestCore"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoCore"
+    androidTestImplementation "io.mockk:mockk-android:$versions.mockkAndroid"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

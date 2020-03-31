@@ -18,7 +18,9 @@ ext.versions = [
         'room'              : '2.2.4',
         'junit'             : '4.12',
         'mockk'             : '1.9.3',
+        'mockkAndroid'      : '1.9.2',
         'androidXJunit'     : '1.1.1',
         'espressoCore'      : '3.2.0',
-        'coreTesting'       : '2.1.0'
+        'coreTesting'       : '2.1.0',
+        'androidXTestCore'  : '1.2.0'
 ]
