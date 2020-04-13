@@ -121,7 +121,7 @@ workflows:
 
             if ! git diff-index --quiet HEAD --; then
                 git add bitrise.yml
-                git commit -m "updating bitrise.yml from workflow"
+                git commit -m "updating bitrise.yml from build #$BITRISE_BUILD_NUMBER"
                 git push
             fi
         title: Add most recent bitrise.yml
