@@ -116,13 +116,7 @@ workflows:
             set -e
             # debug log
             set -x
-            > bitrise.yml
-            curl -X GET "https://api.bitrise.io/v0.1/apps/720a32360a4f66ad/bitrise.yml" -H "Authorization: 22dS2auRZ0RDikaNKuT4B33IMW5s9VPBDcrqf1DaLGSRy1WFxXijIM4FGKDLNmS65_VmpQC5Bs2VOvKHQO6iow" > bitrise.yml
-
-            if ! git diff-index --quiet HEAD --; then
-                git add bitrise.yml
-                git commit -m "updating bitrise.yml from build #$BITRISE_BUILD_NUMBER"
-                git push
-            fi
+            chmod +x update-bitrise.sh
+            ./update-bitrise.sh $BITRISE_APP_SLUG $AUTHORIZATION_TOKEN $BITRISE_BUILD_NUMBER
         title: Add most recent bitrise.yml
     - deploy-to-bitrise-io@1.9.7: {}
