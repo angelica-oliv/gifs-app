@@ -1,5 +1,5 @@
 > bitrise.yml
-curl -X GET "https://api.bitrise.io/v0.1/apps/$1/bitrise.yml" -H "Authorization: $2" > bitrise.yml
+curl -X GET "https://api.bitrise.io/v0.1/apps/$1/bitrise.yml" -H "Authorization: $2" -- fail || exit 1 > bitrise.yml
 
 if ! git diff-index --quiet HEAD --; then
     git add bitrise.yml
