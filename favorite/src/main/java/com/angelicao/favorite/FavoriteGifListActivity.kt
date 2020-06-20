@@ -32,6 +32,8 @@ class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif
         startActivity(shareIntent)
     }
 
+    private val gifAdapter = GifListAdapter(favoriteClick, shareClick)
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
         SplitCompat.installActivity(this)
@@ -46,12 +48,14 @@ class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif
     private fun initViews() {
         gifList = findViewById(R.id.favorite_gif_list)
         gifList?.layoutManager = GridLayoutManager(this, 1)
+
+        //gifList?.adapter = gifAdapter
     }
 
     private fun setObservers() {
         favoriteGifListViewModel.gifList.observe(this, Observer {
             it?.let {
-                gifList?.adapter = GifListAdapter(it, favoriteClick, shareClick)
+//                gifAdapter.submitList(it)
             }
         })
     }

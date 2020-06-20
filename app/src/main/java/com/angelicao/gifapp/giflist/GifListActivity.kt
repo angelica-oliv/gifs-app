@@ -47,6 +47,8 @@ class GifListActivity : AppCompatActivity(R.layout.activity_gif_list) {
         startActivity(shareIntent)
     }
 
+    private val gifAdapter = GifListAdapter(favoriteClick, shareClick)
+
     private val listener = SplitInstallStateUpdatedListener { state ->
         val multiInstall = state.moduleNames().size > 1
         val names = state.moduleNames().joinToString(" - ")
@@ -112,15 +114,17 @@ class GifListActivity : AppCompatActivity(R.layout.activity_gif_list) {
         gifList = findViewById(R.id.gif_list)
         gifList?.layoutManager = GridLayoutManager(this, 2)
 
+        gifList?.adapter = gifAdapter
+
         progress = findViewById(R.id.progress)
         progressBar = findViewById(R.id.progress_bar)
         progressText = findViewById(R.id.progress_text)
     }
 
     private fun setObservers() {
-        gifListViewModel.gifList.observe(this, Observer {
+        gifListViewModel.gifList?.observe(this, Observer {
             it?.let {
-                gifList?.adapter = GifListAdapter(it, favoriteClick, shareClick)
+                gifAdapter.submitList(it)
             }
         })
     }

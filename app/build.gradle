@@ -49,6 +49,7 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    implementation "android.arch.paging:runtime:$versions.paging"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"

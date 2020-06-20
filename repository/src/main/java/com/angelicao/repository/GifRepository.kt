@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GifRepository(private val gifRemoteDataSourceFactory: GifRemoteDataSourceFactory, private val gifDao: GifDao) {
-    fun getGIFs(pageSize: Int): LiveData<PagedList<Gif>> {
+    suspend fun getGIFs(pageSize: Int): LiveData<PagedList<Gif>> = withContext(Dispatchers.IO) {
         val favoriteIDs = gifDao.getAll().map {
             it.id
         }
@@ -28,7 +28,7 @@ class GifRepository(private val gifRemoteDataSourceFactory: GifRemoteDataSourceF
                 favorite = favoriteIDs.contains(gifData.id)
             )
         }
-        return LivePagedListBuilder(factory, Config(pageSize, enablePlaceholders = false)).build()
+        LivePagedListBuilder(factory, Config(pageSize, enablePlaceholders = false)).build()
     }
 
     suspend fun favoriteGif(gif: Gif) {

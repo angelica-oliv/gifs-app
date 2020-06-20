@@ -11,7 +11,8 @@ class GifRemoteDataSource(private val api: GifAPI): PositionalDataSource<GifData
     suspend fun getGIFs() = api.getTrendingGIFs()
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<GifData>) {
         GlobalScope.launch(Dispatchers.IO) {
-            callback.onResult(api.getTrendingGIFs().data)
+            val apiData = api.getTrendingGIFs().data
+            callback.onResult(apiData)
         }
     }
 
@@ -20,7 +21,8 @@ class GifRemoteDataSource(private val api: GifAPI): PositionalDataSource<GifData
         callback: LoadInitialCallback<GifData>
     ) {
         GlobalScope.launch(Dispatchers.IO) {
-            callback.onResult(api.getTrendingGIFs().data, params.requestedStartPosition)
+            val apiData = api.getTrendingGIFs().data
+            callback.onResult(apiData, params.requestedStartPosition)
         }
     }
 }

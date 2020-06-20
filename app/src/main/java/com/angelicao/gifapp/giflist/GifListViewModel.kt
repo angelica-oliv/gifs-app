@@ -4,18 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import com.angelicao.repository.GifRepository
 import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.launch
 
+private const val PAGE_SIZE = 20
 class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
-    private val _gifList = MutableLiveData<List<Gif>>()
-    val gifList: LiveData<List<Gif>>
+    private var _gifList: LiveData<PagedList<Gif>>? = null
+    val gifList: LiveData<PagedList<Gif>>?
         get() = _gifList
 
     init {
         viewModelScope.launch {
-            _gifList.postValue(gifRepository.getGIFs())
+            _gifList = gifRepository.getGIFs(PAGE_SIZE)
         }
     }
 
@@ -33,10 +35,13 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
     }
 
     private fun updateGifList(gif: Gif) {
-        val mutableGifList = _gifList.value?.toMutableList()
-        mutableGifList?.indexOf(gif)?.let { index ->
-            mutableGifList.set(index, gif.apply { favorite = favorite.not() })
+        val pagedList = gifList?.value
+        pagedList?.indexOf(gif)?.let { index ->
+            pagedList.set(index, gif.apply { favorite = favorite.not() })
         }
-        _gifList.postValue(mutableGifList)
+
+        _gifList = MutableLiveData<PagedList<Gif>>().apply {
+            value = pagedList
+        }
     }
 }

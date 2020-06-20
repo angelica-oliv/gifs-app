@@ -1,4 +1,4 @@
 ext.keys = [
-        'giphyDebug'        : "\"PUT_YOUR_KEY_HERE\"",
-        'giphyProd'         : "\"PUT_YOUR_KEY_HERE\""
+        'giphyDebug'        : "\"Aq59wvZJurfrZ4wMmTDIfcwtutY0oiX4\"",
+        'giphyProd'         : "\"Aq59wvZJurfrZ4wMmTDIfcwtutY0oiX4\""
 ]
