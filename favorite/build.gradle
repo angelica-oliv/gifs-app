@@ -2,6 +2,7 @@ apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../versions.gradle'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion versions.compileSdk
@@ -30,6 +31,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
     implementation "com.google.android.play:core:$versions.playcore"
+    implementation "androidx.legacy:legacy-support-v4:$versions.androidXLegacy"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"

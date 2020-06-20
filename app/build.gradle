@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../versions.gradle'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion versions.compileSdk
@@ -49,8 +50,9 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "androidx.legacy:legacy-support-v4:$versions.androidXLegacy"
-    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    api "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    api "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    api "androidx.navigation:navigation-dynamic-features-fragment:$versions.navigation"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     testImplementation "junit:junit:$versions.junit"

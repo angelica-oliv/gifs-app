@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.constraintlayout.widget.Group
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +16,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class GifListFragment : Fragment() {
     private val gifListViewModel by viewModel<GifListViewModel>()
     private var gifList: RecyclerView? = null
-    private var progress: Group? = null
-    private var progressBar: ProgressBar? = null
-    private var progressText: TextView? = null
 
     private val favoriteClick: (Gif) -> Unit = { gif ->
         gifListViewModel.onFavoriteClicked(gif)
@@ -51,10 +45,6 @@ class GifListFragment : Fragment() {
         contentView?.run {
             gifList = findViewById(R.id.gif_list)
             gifList?.layoutManager = GridLayoutManager(context, 2)
-
-            progress = findViewById(R.id.progress)
-            progressBar = findViewById(R.id.progress_bar)
-            progressText = findViewById(R.id.progress_text)
         }
     }
 

@@ -1,20 +1,20 @@
 package com.angelicao.favorite
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.favorite.di.FavoriteKoinComponent
 import com.angelicao.gifapp.giflist.GifListAdapter
 import com.angelicao.repository.data.Gif
-import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif_list), FavoriteKoinComponent {
+class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
     private val favoriteGifListViewModel by viewModel<FavoriteGifListViewModel>()
     private var gifList: RecyclerView? = null
 
@@ -32,24 +32,25 @@ class FavoriteGifListActivity : AppCompatActivity(R.layout.activity_favorite_gif
         startActivity(shareIntent)
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase)
-        SplitCompat.installActivity(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViews()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val contentView = inflater.inflate(R.layout.fragment_favorite_gif_list, container, false)
+        initViews(contentView)
         setObservers()
+        return contentView
     }
 
-    private fun initViews() {
-        gifList = findViewById(R.id.favorite_gif_list)
-        gifList?.layoutManager = GridLayoutManager(this, 1)
+    private fun initViews(contentView: View?) {
+        contentView?.run {
+            gifList = findViewById(R.id.favorite_gif_list)
+            gifList?.layoutManager = GridLayoutManager(context, 1)
+        }
     }
 
     private fun setObservers() {
-        favoriteGifListViewModel.gifList.observe(this, Observer {
+        favoriteGifListViewModel.gifList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 gifList?.adapter = GifListAdapter(it, favoriteClick, shareClick)
             }

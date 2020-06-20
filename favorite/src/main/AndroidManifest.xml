@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.angelicao.favorite">
     <dist:module dist:title="@string/module_favorite">
@@ -7,13 +7,4 @@
         </dist:delivery>
         <dist:fusing dist:include="true" />
     </dist:module>
-
-    <application>
-        <activity android:name=".FavoriteGifListActivity"
-            android:label="@string/favorite">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-    </application>
 </manifest>
