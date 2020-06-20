@@ -48,6 +48,9 @@ dependencies {
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "androidx.legacy:legacy-support-v4:$versions.androidXLegacy"
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     testImplementation "junit:junit:$versions.junit"

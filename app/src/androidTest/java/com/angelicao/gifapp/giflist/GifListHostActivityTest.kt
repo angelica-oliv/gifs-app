@@ -7,7 +7,6 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.toPackage
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.angelicao.gifapp.R
@@ -34,7 +33,7 @@ private val GIF = Gif(id = "1",
 private val GIF_LIST = listOf(FAVORITE_GIF, GIF)
 
 @RunWith(AndroidJUnit4::class)
-class GifListActivityTest {
+class GifListHostActivityTest {
     private lateinit var gifViewModel: GifListViewModel
     private val repository = mockk<GifRepository>(relaxed = true)
 
@@ -46,7 +45,7 @@ class GifListActivityTest {
             viewModel(override = true) { gifViewModel }
         })
 
-        launchActivity<GifListActivity>()
+        launchActivity<GifListHostActivity>()
         Intents.init()
     }
 

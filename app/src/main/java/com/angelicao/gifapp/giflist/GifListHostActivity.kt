@@ -12,40 +12,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.gifapp.R
-import com.angelicao.repository.data.Gif
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val FAVORITE_GIF_LIST_ACTIVITY = "com.angelicao.favorite.FavoriteGifListActivity"
 private const val TAG = "GifListActivity"
-class GifListActivity : AppCompatActivity(R.layout.activity_gif_list) {
-    private val gifListViewModel by viewModel<GifListViewModel>()
-    private var gifList: RecyclerView? = null
+class GifListHostActivity : AppCompatActivity(R.layout.activity_gif_list_host) {
     private var progress: Group? = null
     private var progressBar: ProgressBar? = null
     private var progressText: TextView? = null
     private val favorite by lazy { getString(R.string.module_favorite) }
 
     private lateinit var manager: SplitInstallManager
-
-    private val favoriteClick: (Gif) -> Unit = { gif ->
-        gifListViewModel.onFavoriteClicked(gif)
-    }
-    private val shareClick: (Gif) -> Unit = { gif ->
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, gif.url)
-            type = "text/plain"
-        }
-
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
-    }
 
     private val listener = SplitInstallStateUpdatedListener { state ->
         val multiInstall = state.moduleNames().size > 1
@@ -72,9 +51,6 @@ class GifListActivity : AppCompatActivity(R.layout.activity_gif_list) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         manager = SplitInstallManagerFactory.create(this)
-
-        initViews()
-        setObservers()
     }
 
     override fun onResume() {
@@ -108,22 +84,7 @@ class GifListActivity : AppCompatActivity(R.layout.activity_gif_list) {
         }
     }
 
-    private fun initViews() {
-        gifList = findViewById(R.id.gif_list)
-        gifList?.layoutManager = GridLayoutManager(this, 2)
 
-        progress = findViewById(R.id.progress)
-        progressBar = findViewById(R.id.progress_bar)
-        progressText = findViewById(R.id.progress_text)
-    }
-
-    private fun setObservers() {
-        gifListViewModel.gifList.observe(this, Observer {
-            it?.let {
-                gifList?.adapter = GifListAdapter(it, favoriteClick, shareClick)
-            }
-        })
-    }
 
     private fun launchFavoriteActivity() {
         Intent().setClassName(packageName, FAVORITE_GIF_LIST_ACTIVITY)
