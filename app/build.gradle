@@ -64,7 +64,7 @@ dependencies {
     androidTestImplementation "androidx.test:core:$versions.androidXTestCore"
     androidTestImplementation "androidx.test:core-ktx:$versions.androidXTestCore"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoCore"
-    androidTestImplementation "io.mockk:mockk-android:$versions.mockkAndroid"
+    androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
