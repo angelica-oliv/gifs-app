@@ -1,12 +1,10 @@
 package com.angelicao.gifapp.giflist
 
-import android.content.ComponentName
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.setViewNavController
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.angelicao.gifapp.R
@@ -14,7 +12,7 @@ import com.angelicao.repository.GifRepository
 import com.angelicao.repository.data.Gif
 import io.mockk.coEvery
 import io.mockk.mockk
-import org.junit.After
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,6 +34,7 @@ private val GIF_LIST = listOf(FAVORITE_GIF, GIF)
 class GifListHostActivityTest {
     private lateinit var gifViewModel: GifListViewModel
     private val repository = mockk<GifRepository>(relaxed = true)
+    private val navController = mockk<NavController>(relaxed = true, relaxUnitFun = true)
 
     @Before
     fun setup() {
@@ -45,20 +44,18 @@ class GifListHostActivityTest {
             viewModel(override = true) { gifViewModel }
         })
 
-        launchActivity<GifListHostActivity>()
-        Intents.init()
+        val gifListScenario = launchActivity<GifListHostActivity>()
+        gifListScenario.onActivity {
+            setViewNavController(it.findViewById(R.id.main_content), navController)
+        }
     }
 
     @Test
-    fun onFavoriteActionClicked_favoriteActivityIsStarted() {
+    fun onFavoriteActionClicked_favoriteFragmentIsStarted() {
         onView(withId(R.id.action_favorite)).perform(click())
 
-        intended(hasComponent(ComponentName("com.angelicao.gifapp", "com.angelicao.favorite.FavoriteGifListActivity")))
-    }
-
-    @After
-    fun release() {
-        Intents.release()
+        val action = GifListFragmentDirections.actionToFavoriteGifListFragment()
+        verify { navController.navigate(action) }
     }
 
     private fun mockRepository() {
