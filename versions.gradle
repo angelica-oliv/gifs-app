@@ -17,7 +17,7 @@ ext.versions = [
         'okhttpLogging'     : '4.4.0',
         'room'              : '2.2.5',
         'androidXLegacy'    : '1.0.0',
-        'navigation'        : '2.3.0-rc01',
+        'navigation'        : '2.3.0',
         'junit'             : '4.13',
         'mockk'             : '1.10.0',
         'androidXJunit'     : '1.1.1',
