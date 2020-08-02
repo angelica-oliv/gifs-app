@@ -6,6 +6,9 @@ It uses [Android Dynamic Module](https://developer.android.com/guide/app-bundle/
 The usage sample is in the access to Favorite Gifs screen, the FavoriteGifListActivity.
 To check the implementation details, read my post on [Medium](https://medium.com/@angelica.liv/utilizando-m%C3%B3dulos-din%C3%A2micos-no-seu-app-android-e04875765586)! ;)
 
+## Jetpack Navigation
+To navigate between screens and to make Dynamic Module implementation simpler, there is the implementation of [Jetpack Navigation](https://developer.android.com/guide/navigation) library. [Here](https://medium.com/android-dev-br/implementando-jetpack-navigation-component-com-m%C3%B3dulos-de-features-din%C3%A2micas-no-android-e604c13d235f) you can find a post about this library integration on an existing app.
+
 ## How can I build?
 To build the project in your own machine, please update the **keys.gradle** file with your **own** keys in Giphy platform access (click [here](https://developers.giphy.com/dashboard/?create=true) to create an app).
 
