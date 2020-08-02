@@ -16,6 +16,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class GifListFragment : Fragment() {
     private val gifListViewModel by viewModel<GifListViewModel>()
     private var gifList: RecyclerView? = null
+    private var adapter: GifListAdapter? = null
 
     private val favoriteClick: (Gif) -> Unit = { gif ->
         gifListViewModel.onFavoriteClicked(gif)
@@ -45,13 +46,16 @@ class GifListFragment : Fragment() {
         contentView?.run {
             gifList = findViewById(R.id.gif_list)
             gifList?.layoutManager = GridLayoutManager(context, 2)
+
+            adapter = GifListAdapter(favoriteClick, shareClick)
+            gifList?.adapter = adapter
         }
     }
 
     private fun setObservers() {
         gifListViewModel.gifList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                gifList?.adapter = GifListAdapter(it, favoriteClick, shareClick)
+                adapter?.submitList(it.toMutableList())
             }
         })
     }

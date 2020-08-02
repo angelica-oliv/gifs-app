@@ -12,7 +12,7 @@ class GifAPIBuilder {
     private fun getOkHttpClient(): OkHttpClient {
         return if(BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BASIC
+            logging.level = HttpLoggingInterceptor.Level.BODY
             OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build()

@@ -7,12 +7,24 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
 import com.bumptech.glide.Glide
 
-class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked: (Gif) -> Unit, private val shareClicked: (Gif) -> Unit): RecyclerView.Adapter<GifListAdapter.GifViewHolder>() {
+class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
+    override fun areItemsTheSame(oldItem: Gif, newItem: Gif): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Gif, newItem: Gif): Boolean =
+        oldItem == newItem
+}
+
+class GifListAdapter(private val favoriteClicked: (Gif) -> Unit,
+                     private val shareClicked: (Gif) -> Unit): ListAdapter<Gif, GifListAdapter.GifViewHolder>(GifDiffCallback()) {
+
     class GifViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val gifImage: ImageView = itemView.findViewById(R.id.gif_image)
         val favorite: ImageButton = itemView.findViewById(R.id.favorite)
@@ -23,10 +35,8 @@ class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked
         LayoutInflater.from(parent.context).inflate(R.layout.gif_item, null)
     )
 
-    override fun getItemCount(): Int = gifList.size
-
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        gifList[position].run {
+        getItem(position).run {
             loadImageGif(url, holder.gifImage)
             holder.gifImage.contentDescription = title
             setFavoriteButtonColor(favorite, holder.favorite)
@@ -53,5 +63,9 @@ class GifListAdapter(private val gifList: List<Gif>, private val favoriteClicked
                 ContextCompat.getColor(context, R.color.colorGray)
             }, PorterDuff.Mode.MULTIPLY)
         }
+    }
+
+    override fun submitList(list: MutableList<Gif>?) {
+        super.submitList(list)
     }
 }

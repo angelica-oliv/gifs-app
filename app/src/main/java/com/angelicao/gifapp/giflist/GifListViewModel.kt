@@ -1,9 +1,6 @@
 package com.angelicao.gifapp.giflist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.angelicao.repository.GifRepository
 import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.launch
@@ -15,7 +12,7 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
 
     init {
         viewModelScope.launch {
-            _gifList.postValue(gifRepository.getGIFs())
+            updateGifList()
         }
     }
 
@@ -28,15 +25,11 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
                     gifRepository.favoriteGif(this)
                 }
             }
-            updateGifList(gif)
+            updateGifList()
         }
     }
 
-    private fun updateGifList(gif: Gif) {
-        val mutableGifList = _gifList.value?.toMutableList()
-        mutableGifList?.indexOf(gif)?.let { index ->
-            mutableGifList.set(index, gif.apply { favorite = favorite.not() })
-        }
-        _gifList.postValue(mutableGifList)
+    private suspend fun updateGifList() {
+        _gifList.postValue(gifRepository.getGIFs())
     }
 }
