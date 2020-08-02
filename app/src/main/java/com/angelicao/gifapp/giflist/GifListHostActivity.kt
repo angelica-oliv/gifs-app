@@ -1,6 +1,5 @@
 package com.angelicao.gifapp.giflist
 
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
