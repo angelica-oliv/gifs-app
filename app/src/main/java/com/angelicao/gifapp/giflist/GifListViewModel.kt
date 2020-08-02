@@ -12,7 +12,7 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
 
     init {
         viewModelScope.launch {
-            updateGifList()
+            _gifList.postValue(gifRepository.getGIFs())
         }
     }
 
@@ -24,12 +24,16 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
                 } else {
                     gifRepository.favoriteGif(this)
                 }
+                updateGifList(this)
             }
-            updateGifList()
         }
     }
 
-    private suspend fun updateGifList() {
-        _gifList.postValue(gifRepository.getGIFs())
+    private fun updateGifList(gif: Gif) {
+        val mutableGifList = _gifList.value?.toMutableList()
+        mutableGifList?.indexOf(gif)?.let { index ->
+            mutableGifList.set(index, gif.apply { favorite = favorite.not() })
+        }
+        _gifList.postValue(mutableGifList)
     }
 }

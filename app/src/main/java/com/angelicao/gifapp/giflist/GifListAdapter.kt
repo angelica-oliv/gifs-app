@@ -19,7 +19,7 @@ class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
         oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Gif, newItem: Gif): Boolean =
-        oldItem == newItem
+        oldItem.favorite == newItem.favorite
 }
 
 class GifListAdapter(private val favoriteClicked: (Gif) -> Unit,
@@ -63,9 +63,5 @@ class GifListAdapter(private val favoriteClicked: (Gif) -> Unit,
                 ContextCompat.getColor(context, R.color.colorGray)
             }, PorterDuff.Mode.MULTIPLY)
         }
-    }
-
-    override fun submitList(list: MutableList<Gif>?) {
-        super.submitList(list)
     }
 }

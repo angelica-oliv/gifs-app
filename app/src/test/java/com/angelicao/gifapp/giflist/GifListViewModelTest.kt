@@ -6,12 +6,13 @@ import com.angelicao.repository.data.Gif
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -26,6 +27,7 @@ private val GIF = Gif(id = "1",
     favorite = false)
 private val GIF_LIST = listOf(FAVORITE_GIF, GIF)
 
+@ExperimentalCoroutinesApi
 class GifListViewModelTest {
     @JvmField @Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()

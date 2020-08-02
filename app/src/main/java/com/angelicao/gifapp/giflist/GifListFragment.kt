@@ -56,6 +56,7 @@ class GifListFragment : Fragment() {
         gifListViewModel.gifList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter?.submitList(it.toMutableList())
+                adapter?.notifyDataSetChanged()
             }
         })
     }

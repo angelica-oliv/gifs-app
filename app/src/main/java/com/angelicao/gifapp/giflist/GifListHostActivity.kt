@@ -18,8 +18,10 @@ class GifListHostActivity : AppCompatActivity(R.layout.activity_gif_list_host) {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_favorite -> {
-            val action = GifListFragmentDirections.actionToFavoriteGifListFragment()
-            findNavController(R.id.main_content).navigate(action)
+            if(findNavController(R.id.main_content).currentDestination?.id == R.id.gifListFragment) {
+                val action = GifListFragmentDirections.actionToFavoriteGifListFragment()
+                findNavController(R.id.main_content).navigate(action)
+            }
             true
         }
         else -> {
