@@ -30,7 +30,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel"
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
-    implementation "com.google.android.play:core:$versions.playcore"
+    implementation "com.google.android.play:core-ktx:$versions.playcore"
     implementation "androidx.legacy:legacy-support-v4:$versions.androidXLegacy"
 
     testImplementation "junit:junit:$versions.junit"

@@ -56,7 +56,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appCompat"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
-    implementation "com.google.android.play:core:$versions.playcore"
+    implementation "com.google.android.play:core-ktx:$versions.playcore"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel"
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "org.koin:koin-android:$versions.koin"
@@ -67,6 +67,7 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     api "androidx.navigation:navigation-dynamic-features-fragment:$versions.navigation"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"

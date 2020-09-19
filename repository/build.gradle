@@ -23,6 +23,7 @@ dependencies {
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
     kapt "androidx.room:room-compiler:$versions.room"
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"
