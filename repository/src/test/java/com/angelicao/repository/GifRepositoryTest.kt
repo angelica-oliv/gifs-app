@@ -2,60 +2,47 @@ package com.angelicao.repository
 
 import com.angelicao.localdata.GifDao
 import com.angelicao.localdata.data.FavoriteGif
-import com.angelicao.network.GifRemoteDataSource
-import com.angelicao.network.data.GifData
-import com.angelicao.network.data.GifImage
-import com.angelicao.network.data.GifImageData
-import com.angelicao.network.data.GifResponse
 import com.angelicao.repository.data.Gif
-import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Assert.*
-
-private val GIF_REMOTE = GifResponse(listOf(GifData("gif", "123", "title",  GifImage(
-    GifImageData("http://giphy.com")
-)
-)))
 private val GIF_DATABASE = listOf(FavoriteGif("123","http://giphy.com", "title"))
-private val GIF_REPOSITORY_LIST = listOf(Gif("123","http://giphy.com", "title"))
+private val GIF = Gif("123","http://giphy.com", "title")
+private val FAVORITE_GIF = FavoriteGif("123", "http://giphy.com", "title")
 private val GIF_REPOSITORY_FAVORITE_LIST = listOf(Gif("123","http://giphy.com", "title", true))
+@ExperimentalCoroutinesApi
 class GifRepositoryTest {
-    private val gifRemoteDataSource = mockk<GifRemoteDataSource>()
     private val gifDao = mockk<GifDao>(relaxed = true)
-    private val gifRepository = GifRepository(gifRemoteDataSource, gifDao)
+    private val testDispatcher = TestCoroutineDispatcher()
+    private val gifRepository = GifRepository(gifDao, testDispatcher)
 
     @Test
-    fun whenRemoteGifDataIsRequested_gifIsReturned() = runBlocking {
-        coEvery { gifRemoteDataSource.getGIFs() } returns GIF_REMOTE
+    fun whenAddingFavoriteGif_favoriteGifIsAddedToDatabase() = runBlockingTest {
+        gifRepository.favoriteGif(GIF)
 
-        val valueReturned = gifRepository.getGIFs()
-
-        assertEquals(GIF_REPOSITORY_LIST.size, valueReturned.size)
-        GIF_REPOSITORY_LIST.first().let { gif ->
-            assertEquals(gif.id, valueReturned.first().id)
-            assertEquals(gif.url, valueReturned.first().url)
-            assertEquals(gif.title, valueReturned.first().title)
-            assertEquals(gif.favorite, valueReturned.first().favorite)
-        }
+        coVerify { gifDao.insertAll(FAVORITE_GIF) }
     }
 
     @Test
-    fun whenThereIsFavoriteGifOnDatabase_favoriteGifIsReturned() = runBlocking {
-        coEvery { gifRemoteDataSource.getGIFs() } returns GIF_REMOTE
+    fun whenRemovingFavoriteGif_favoriteGifIsRemovedFromDatabase() = runBlockingTest {
+        gifRepository.removeFavoriteGif(GIF)
+
+        coVerify { gifDao.delete(FAVORITE_GIF) }
+    }
+
+    @Test
+    fun whenGettingAllFavorites_favoriteGifIsReturnedFromDatabase() = runBlockingTest {
         every { gifDao.getAll() } returns GIF_DATABASE
 
-        val valueReturned = gifRepository.getGIFs()
+        val favoriteGifList = gifRepository.getFavoriteGif()
 
-        assertEquals(GIF_REPOSITORY_LIST.size, valueReturned.size)
-        GIF_REPOSITORY_FAVORITE_LIST.first().let { gif ->
-            assertEquals(gif.id, valueReturned.first().id)
-            assertEquals(gif.url, valueReturned.first().url)
-            assertEquals(gif.title, valueReturned.first().title)
-            assertEquals(gif.favorite, valueReturned.first().favorite)
-        }
+        coVerify { gifDao.getAll() }
+        assertEquals(GIF_REPOSITORY_FAVORITE_LIST, favoriteGifList)
     }
 }
