@@ -2,15 +2,17 @@ package com.angelicao.gifapp.giflist
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class GifListFragment : Fragment() {
@@ -46,6 +48,7 @@ class GifListFragment : Fragment() {
         contentView?.run {
             gifList = findViewById(R.id.gif_list)
             gifList?.layoutManager = GridLayoutManager(context, 2)
+            gifList?.setHasFixedSize(true)
 
             adapter = GifListAdapter(favoriteClick, shareClick)
             gifList?.adapter = adapter
@@ -53,11 +56,11 @@ class GifListFragment : Fragment() {
     }
 
     private fun setObservers() {
-        gifListViewModel.gifList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter?.submitList(it.toMutableList())
+        lifecycleScope.launch {
+            gifListViewModel.gifList.collectLatest {
+                adapter?.submitData(it)
                 adapter?.notifyDataSetChanged()
             }
-        })
+        }
     }
 }

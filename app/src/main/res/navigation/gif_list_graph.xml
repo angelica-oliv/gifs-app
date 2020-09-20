@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/gif_list_graph"
-    app:startDestination="@id/gifListFragment">
+    app:startDestination="@id/gif_list_fragment">
 
     <fragment
-        android:id="@+id/gifListFragment"
+        android:id="@+id/gif_list_fragment"
         android:name="com.angelicao.gifapp.giflist.GifListFragment"
         android:label="GifListFragment" >
         <action
-            android:id="@+id/actionToFavoriteGifListFragment"
-            app:destination="@id/favoriteGifListFragment" />
+            android:id="@+id/navigate_to_favorite_gif_list_fragment"
+            app:destination="@id/favorite_gif_list_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/favoriteGifListFragment"
+        android:id="@+id/favorite_gif_list_fragment"
         android:name="com.angelicao.favorite.FavoriteGifListFragment"
         app:moduleName="@string/module_favorite"
         android:label="FavoriteGifListFragment" />

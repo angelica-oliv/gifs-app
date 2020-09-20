@@ -1,6 +1,5 @@
-package com.angelicao.gifapp.giflist
+package com.angelicao.favorite
 
-import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
@@ -20,11 +19,11 @@ class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
         oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Gif, newItem: Gif): Boolean =
-        oldItem == newItem
+        oldItem.favorite == newItem.favorite
 }
 
-class GifListAdapter(private val favoriteClicked: (Gif) -> Unit,
-                     private val shareClicked: (Gif) -> Unit): PagingDataAdapter<Gif, GifListAdapter.GifViewHolder>(GifDiffCallback()) {
+class FavoriteGifListAdapter(private val favoriteClicked: (Gif) -> Unit,
+                     private val shareClicked: (Gif) -> Unit): ListAdapter<Gif, FavoriteGifListAdapter.GifViewHolder>(GifDiffCallback()) {
 
     class GifViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val gifImage: ImageView = itemView.findViewById(R.id.gif_image)
@@ -32,21 +31,16 @@ class GifListAdapter(private val favoriteClicked: (Gif) -> Unit,
         val share: ImageButton = itemView.findViewById(R.id.share)
     }
 
-    @SuppressLint("InflateParams")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= GifViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.gif_item, null)
     )
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        getItem(position)?.run {
+        getItem(position).run {
             loadImageGif(url, holder.gifImage)
             holder.gifImage.contentDescription = title
             setFavoriteButtonColor(favorite, holder.favorite)
-            holder.favorite.setOnClickListener {
-                favoriteClicked(this)
-                this.favorite = !favorite
-                notifyItemChanged(position)
-            }
+            holder.favorite.setOnClickListener { favoriteClicked(this) }
             holder.share.setOnClickListener { shareClicked(this) }
         }
     }

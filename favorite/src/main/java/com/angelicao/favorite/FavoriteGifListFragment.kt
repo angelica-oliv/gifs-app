@@ -2,22 +2,21 @@ package com.angelicao.favorite
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.favorite.di.FavoriteKoinComponent
-import com.angelicao.gifapp.giflist.GifListAdapter
 import com.angelicao.repository.data.Gif
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
     private val favoriteGifListViewModel by viewModel<FavoriteGifListViewModel>()
     private var gifList: RecyclerView? = null
-    private var gifAdapter: GifListAdapter? = null
+    private var gifAdapter: FavoriteGifListAdapter? = null
 
     private val favoriteClick: (Gif) -> Unit = { gif ->
         favoriteGifListViewModel.removeFavorite(gif)
@@ -47,7 +46,7 @@ class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
         contentView?.run {
             gifList = findViewById(R.id.favorite_gif_list)
             gifList?.layoutManager = GridLayoutManager(context, 1)
-            gifAdapter = GifListAdapter(favoriteClick, shareClick)
+            gifAdapter = FavoriteGifListAdapter(favoriteClick, shareClick)
             gifList?.adapter = gifAdapter
         }
     }

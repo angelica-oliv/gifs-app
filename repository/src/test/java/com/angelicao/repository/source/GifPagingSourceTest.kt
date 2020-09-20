@@ -14,6 +14,7 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -28,11 +29,12 @@ class GifPagingSourceTest {
     private val gifRemoteDataSource: GifRemoteDataSource = mockk()
     private val loadParams: PagingSource.LoadParams<Int> = mockk()
     private val gifDao = mockk<GifDao>(relaxed = true)
+    private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var gifPagingSource: GifPagingSource
 
     @Before
     fun setup() {
-        gifPagingSource = GifPagingSource(gifRemoteDataSource, gifDao)
+        gifPagingSource = GifPagingSource(gifRemoteDataSource, gifDao, testDispatcher)
     }
 
     @Test

@@ -14,5 +14,5 @@ val repositoryModule = module {
     single { GifRemoteDataSource(get()) }
     single { GifDatabaseBuilder(androidContext()).build().gifDao() }
     factory { GifRepository(get(), Dispatchers.IO) }
-    factory { GifPagingSource(get(), get()) }
+    factory { GifPagingSource(get(), get(), Dispatchers.IO) }
 }

@@ -1,23 +1,26 @@
 package com.angelicao.gifapp.giflist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.angelicao.repository.GifRepository
 import com.angelicao.repository.data.Gif
+import com.angelicao.repository.source.GifPagingSource
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
-    private val _gifList = MutableLiveData<List<Gif>>()
-    val gifList: LiveData<List<Gif>>
-        get() = _gifList
-
-    init {
-        viewModelScope.launch {
-            _gifList.postValue(gifRepository.getGIFs())
-        }
+private const val PAGE_SIZE = 25
+class GifListViewModel(private val gifRepository: GifRepository, private val gifPagingSource: GifPagingSource): ViewModel() {
+    val gifList: Flow<PagingData<Gif>> = Pager(
+        PagingConfig(pageSize = PAGE_SIZE)) {
+        gifPagingSource
     }
+        .flow
+        .cachedIn(viewModelScope)
+
 
     fun onFavoriteClicked(gif: Gif) {
         viewModelScope.launch {
@@ -27,16 +30,7 @@ class GifListViewModel(private val gifRepository: GifRepository): ViewModel() {
                 } else {
                     gifRepository.favoriteGif(this)
                 }
-                updateGifList(this)
             }
         }
-    }
-
-    private fun updateGifList(gif: Gif) {
-        val mutableGifList = _gifList.value?.toMutableList()
-        mutableGifList?.indexOf(gif)?.let { index ->
-            mutableGifList.set(index, gif.apply { favorite = favorite.not() })
-        }
-        _gifList.postValue(mutableGifList)
     }
 }
