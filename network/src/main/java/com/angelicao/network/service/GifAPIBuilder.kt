@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class GifAPIBuilder {
     private fun getOkHttpClient(): OkHttpClient {
-        return if(BuildConfig.DEBUG) {
+        return if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
             OkHttpClient.Builder()
@@ -20,7 +20,6 @@ class GifAPIBuilder {
             OkHttpClient.Builder()
                 .build()
         }
-
     }
 
     fun build(): GifAPI {

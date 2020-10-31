@@ -13,7 +13,7 @@ class GifPagingSource(
     private val gifRemoteDataSource: GifRemoteDataSource,
     private val gifDao: GifDao,
     private val coroutineDispatcher: CoroutineDispatcher
-): PagingSource<Int, Gif>() {
+) : PagingSource<Int, Gif>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Gif> {
         return try {
             val offset = params.key ?: 0
@@ -46,5 +46,4 @@ class GifPagingSource(
                     )
                 }
         }
-
 }

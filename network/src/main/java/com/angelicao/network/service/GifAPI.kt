@@ -10,5 +10,6 @@ interface GifAPI {
     @GET("trending")
     suspend fun getTrendingGIFs(
         @Query("api_key") apiKey: String = BuildConfig.GIPHY_API_KEY,
-        @Query("offset") offset: Int = 0): GifResponse
+        @Query("offset") offset: Int = 0
+    ): GifResponse
 }

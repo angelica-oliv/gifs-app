@@ -33,7 +33,8 @@ class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val contentView = inflater.inflate(R.layout.fragment_favorite_gif_list, container, false)

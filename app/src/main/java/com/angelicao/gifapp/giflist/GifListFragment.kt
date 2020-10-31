@@ -35,7 +35,8 @@ class GifListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val contentView = inflater.inflate(R.layout.fragment_gif_list, container, false)

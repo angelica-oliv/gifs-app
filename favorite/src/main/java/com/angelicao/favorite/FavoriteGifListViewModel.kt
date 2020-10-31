@@ -8,7 +8,7 @@ import com.angelicao.repository.GifRepository
 import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.launch
 
-class FavoriteGifListViewModel(private val gifRepository: GifRepository): ViewModel() {
+class FavoriteGifListViewModel(private val gifRepository: GifRepository) : ViewModel() {
     private val _gifList = MutableLiveData<List<Gif>>()
     val gifList: LiveData<List<Gif>>
         get() = _gifList

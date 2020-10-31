@@ -3,12 +3,17 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
     failFast = true
     buildUponDefaultConfig = true
+    autoCorrect = true
 
     reports {
         html.enabled = true
         xml.enabled = true
         txt.enabled = true
     }
+}
+
+dependencies {
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
 }
 
 tasks.detekt.jvmTarget = "1.8"

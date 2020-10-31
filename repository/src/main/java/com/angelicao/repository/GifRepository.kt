@@ -6,8 +6,7 @@ import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class GifRepository(private val gifDao: GifDao,
-                    private val coroutineDispatcher: CoroutineDispatcher) {
+class GifRepository(private val gifDao: GifDao, private val coroutineDispatcher: CoroutineDispatcher) {
 
     suspend fun favoriteGif(gif: Gif) {
         withContext(coroutineDispatcher) {
@@ -23,7 +22,7 @@ class GifRepository(private val gifDao: GifDao,
         }
     }
 
-    suspend fun getFavoriteGif() : List<Gif> =
+    suspend fun getFavoriteGif(): List<Gif> =
         withContext(coroutineDispatcher) {
             gifDao.getAll().map { favoriteGif ->
                 Gif(

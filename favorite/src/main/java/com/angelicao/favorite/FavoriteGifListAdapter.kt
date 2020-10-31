@@ -22,17 +22,19 @@ class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
         oldItem.favorite == newItem.favorite
 }
 
-class FavoriteGifListAdapter(private val favoriteClicked: (Gif) -> Unit,
-                             private val shareClicked: (Gif) -> Unit):
+class FavoriteGifListAdapter(
+    private val favoriteClicked: (Gif) -> Unit,
+    private val shareClicked: (Gif) -> Unit
+) :
     ListAdapter<Gif, FavoriteGifListAdapter.GifViewHolder>(GifDiffCallback()) {
 
-    class GifViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class GifViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val gifImage: ImageView = itemView.findViewById(R.id.gif_image)
         val favorite: ImageButton = itemView.findViewById(R.id.favorite)
         val share: ImageButton = itemView.findViewById(R.id.share)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= GifViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GifViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.gif_item, null)
     )
 
@@ -58,7 +60,7 @@ class FavoriteGifListAdapter(private val favoriteClicked: (Gif) -> Unit,
 
     private fun setFavoriteButtonColor(favorite: Boolean, favoriteButton: ImageButton) {
         favoriteButton.run {
-            setColorFilter(if(favorite) {
+            setColorFilter(if (favorite) {
                 ContextCompat.getColor(context, R.color.colorAccent)
             } else {
                 ContextCompat.getColor(context, R.color.colorGray)
