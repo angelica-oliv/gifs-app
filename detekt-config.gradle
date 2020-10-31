@@ -12,3 +12,27 @@ detekt {
 }
 
 tasks.detekt.jvmTarget = "1.8"
+
+/***
+ *
+ * ADD THIS TO <<your-repo>>/.git/hooks/pre-commit
+ * DON'T FORGET TO MAKE IT EXECUTABLE WITH chmod +x pre-commit
+ *
+
+ #!/usr/bin/env bash
+ echo "Running detekt check..."
+ OUTPUT="/tmp/detekt-$(date +%s)"
+ ./gradlew detekt > $OUTPUT
+ EXIT_CODE=$?
+ if [ $EXIT_CODE -ne 0 ]; then
+ cat $OUTPUT
+ rm $OUTPUT
+ echo "***********************************************"
+ echo "                 Detekt failed                 "
+ echo " Please fix the above issues before committing "
+ echo "***********************************************"
+ exit $EXIT_CODE
+ fi
+ rm $OUTPUT
+
+ ***/
