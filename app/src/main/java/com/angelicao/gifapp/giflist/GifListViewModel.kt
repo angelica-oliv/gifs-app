@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 private const val PAGE_SIZE = 25
-class GifListViewModel(private val gifRepository: GifRepository, private val gifPagingSource: GifPagingSource): ViewModel() {
+class GifListViewModel(private val gifRepository: GifRepository,
+                       private val gifPagingSource: GifPagingSource): ViewModel() {
     val gifList: Flow<PagingData<Gif>> = Pager(
         PagingConfig(pageSize = PAGE_SIZE)) {
         gifPagingSource

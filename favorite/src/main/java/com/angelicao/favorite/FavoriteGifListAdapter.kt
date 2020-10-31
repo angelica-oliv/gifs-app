@@ -23,7 +23,8 @@ class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
 }
 
 class FavoriteGifListAdapter(private val favoriteClicked: (Gif) -> Unit,
-                     private val shareClicked: (Gif) -> Unit): ListAdapter<Gif, FavoriteGifListAdapter.GifViewHolder>(GifDiffCallback()) {
+                             private val shareClicked: (Gif) -> Unit):
+    ListAdapter<Gif, FavoriteGifListAdapter.GifViewHolder>(GifDiffCallback()) {
 
     class GifViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val gifImage: ImageView = itemView.findViewById(R.id.gif_image)

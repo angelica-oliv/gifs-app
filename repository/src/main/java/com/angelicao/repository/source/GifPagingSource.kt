@@ -7,6 +7,7 @@ import com.angelicao.network.data.GifResponse
 import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class GifPagingSource(
     private val gifRemoteDataSource: GifRemoteDataSource,
@@ -23,7 +24,7 @@ class GifPagingSource(
                 prevKey = if (offset == 0) null else offset - response.data.size,
                 nextKey = offset + response.data.size
             )
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             LoadResult.Error(e)
         }
     }
@@ -39,7 +40,7 @@ class GifPagingSource(
                 .map { gifData ->
                     Gif(
                         id = gifData.id ?: "",
-                        url = gifData.images?.preview_gif?.url ?: "",
+                        url = gifData.images?.previewGif?.url ?: "",
                         title = gifData.title ?: "",
                         favorite = favoriteIDs.contains(gifData.id)
                     )

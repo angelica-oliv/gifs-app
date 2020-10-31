@@ -28,3 +28,4 @@ class GifListHostActivity : AppCompatActivity(R.layout.activity_gif_list_host) {
         }
     }
 }
+

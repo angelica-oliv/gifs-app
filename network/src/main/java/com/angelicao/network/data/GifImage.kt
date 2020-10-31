@@ -1,3 +1,5 @@
 package com.angelicao.network.data
 
-data class GifImage(val preview_gif: GifImageData?)
+import com.squareup.moshi.Json
+
+data class GifImage(@Json(name="preview_gif") val previewGif: GifImageData?)
