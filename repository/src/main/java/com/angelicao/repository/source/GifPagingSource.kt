@@ -40,7 +40,7 @@ class GifPagingSource(
                 .map { gifData ->
                     Gif(
                         id = gifData.id ?: "",
-                        url = gifData.images?.previewGif?.url ?: "",
+                        url = gifData.images?.preview_gif?.url ?: "",
                         title = gifData.title ?: "",
                         favorite = favoriteIDs.contains(gifData.id)
                     )
