@@ -9,4 +9,5 @@
     <string name="already_installed">Already installed</string>
     <string name="starting_install">Starting install for %s</string>
     <string name="error_for_module">Error %d for module %s</string>
+    <string name="title_details">Details</string>
 </resources>

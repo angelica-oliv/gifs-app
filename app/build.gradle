@@ -46,7 +46,7 @@ android {
         }
     }
 
-    dynamicFeatures = [':favorite']
+    dynamicFeatures = [':favorite', ':details']
 }
 
 dependencies {

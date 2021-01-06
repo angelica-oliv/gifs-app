@@ -3,6 +3,7 @@ package com.angelicao.network.service
 import com.angelicao.network.BuildConfig
 import com.angelicao.network.BuildConfig.GIPHY_URL
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,9 +24,12 @@ class GifAPIBuilder {
     }
 
     fun build(): GifAPI {
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
         return Retrofit.Builder()
             .baseUrl(GIPHY_URL)
-            .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(getOkHttpClient())
             .build()
             .create(GifAPI::class.java)
