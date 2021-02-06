@@ -19,7 +19,7 @@ ext.versions = [
         'room'              : '2.2.6',
         'androidXLegacy'    : '1.0.0',
         'navigation'        : '2.3.2',
-        'paging'            : '3.0.0-alpha11',
+        'paging'            : '3.0.0-alpha12',
         'junit'             : '4.13.1',
         'mockk'             : '1.10.2',
         'androidXJunit'     : '1.1.2',
