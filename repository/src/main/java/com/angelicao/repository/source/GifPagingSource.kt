@@ -1,6 +1,7 @@
 package com.angelicao.repository.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.angelicao.localdata.GifDao
 import com.angelicao.network.GifRemoteDataSource
 import com.angelicao.network.data.GifResponse
@@ -46,4 +47,8 @@ class GifPagingSource(
                     )
                 }
         }
+
+    override fun getRefreshKey(state: PagingState<Int, Gif>): Int? {
+        return state.anchorPosition
+    }
 }
