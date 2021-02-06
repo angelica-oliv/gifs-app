@@ -16,7 +16,7 @@ dependencies {
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
 }
 
-tasks.detekt.jvmTarget = "1.8"
+tasks.detekt.jvmTarget = "11"
 
 /***
  *
