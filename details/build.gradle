@@ -9,6 +9,10 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
 
+    buildFeatures {
+        compose true
+    }
+
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
@@ -19,11 +23,22 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
+    kotlinOptions {
+        jvmTarget = "11"
+        useIR = true
+        freeCompilerArgs += ["-Xallow-jvm-ir-dependencies"]
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    composeOptions {
+        kotlinCompilerVersion '1.4.21'
+        kotlinCompilerExtensionVersion '1.0.0-alpha11'
     }
 }
 
@@ -31,7 +46,14 @@ dependencies {
     implementation project(":app")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
+    implementation "androidx.compose.ui:ui:$versions.compose"
+    implementation "androidx.compose.compiler:compiler:$versions.compose"
+
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidXJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoCore"
+    androidTestImplementation "androidx.test:runner:$versions.androidXTestCore"
+    androidTestImplementation "androidx.test:rules:$versions.androidXTestCore"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$versions.compose"
 }
