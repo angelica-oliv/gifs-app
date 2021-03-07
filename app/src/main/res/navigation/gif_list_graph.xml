@@ -10,10 +10,24 @@
         <action
             android:id="@+id/navigate_to_favorite_gif_list_fragment"
             app:destination="@id/favorite_gif_list_fragment" />
+
+        <action
+            android:id="@+id/navigate_to_details_fragment"
+            app:destination="@id/details_fragment" />
     </fragment>
     <fragment
         android:id="@+id/favorite_gif_list_fragment"
         android:name="com.angelicao.favorite.FavoriteGifListFragment"
         app:moduleName="@string/module_favorite"
-        android:label="FavoriteGifListFragment" />
+        android:label="FavoriteGifListFragment" >
+        <action
+            android:id="@+id/action_favorite_gif_list_fragment_to_details_fragment"
+            app:destination="@id/details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.angelicao.details.DetailsFragment"
+        app:moduleName="@string/title_details"
+        android:label="DetailsFragment" />
 </navigation>

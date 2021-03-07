@@ -25,7 +25,8 @@ class GifDiffCallback : DiffUtil.ItemCallback<Gif>() {
 
 class GifListAdapter(
     private val favoriteClicked: (Gif) -> Unit,
-    private val shareClicked: (Gif) -> Unit
+    private val shareClicked: (Gif) -> Unit,
+    private val gifItemClick: (Gif) -> Unit
 ) :
     PagingDataAdapter<Gif, GifListAdapter.GifViewHolder>(GifDiffCallback()) {
 
@@ -51,6 +52,7 @@ class GifListAdapter(
                 notifyItemChanged(position)
             }
             holder.share.setOnClickListener { shareClicked(this) }
+            holder.gifImage.setOnClickListener { gifItemClick(this) }
         }
     }
 

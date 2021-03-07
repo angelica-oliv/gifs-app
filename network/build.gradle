@@ -24,6 +24,15 @@ android {
             buildConfigField("String", "GIPHY_API_KEY", keys.giphyProd)
         }
     }
+
+    compileOptions {
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
 }
 
 dependencies {

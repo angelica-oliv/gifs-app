@@ -13,6 +13,15 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
     }
+
+    compileOptions {
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
 }
 
 dependencies {

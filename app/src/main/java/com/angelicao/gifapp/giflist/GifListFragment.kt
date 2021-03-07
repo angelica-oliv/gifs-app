@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.gifapp.R
@@ -33,6 +34,10 @@ class GifListFragment : Fragment() {
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
     }
+    private val gifItemClick: (Gif) -> Unit = { gif ->
+        val action = GifListFragmentDirections.navigateToDetailsFragment()
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +56,7 @@ class GifListFragment : Fragment() {
             gifList?.layoutManager = GridLayoutManager(context, 2)
             gifList?.setHasFixedSize(true)
 
-            adapter = GifListAdapter(favoriteClick, shareClick)
+            adapter = GifListAdapter(favoriteClick, shareClick, gifItemClick)
             gifList?.adapter = adapter
         }
     }
