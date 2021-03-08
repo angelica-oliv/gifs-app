@@ -25,18 +25,6 @@ workflows:
     - git-clone@4: {}
     - cache-pull@2:
         run_if: false
-    - script@1:
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # write your script here
-            make install-java-11
-        title: Install Java 11
     - install-missing-android-tools@2.3.8:
         inputs:
         - gradlew_path: $PROJECT_LOCATION/gradlew
