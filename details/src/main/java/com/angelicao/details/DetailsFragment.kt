@@ -15,14 +15,12 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(
-            R.layout.fragment_details, container, false
-        ).apply {
-            findViewById<ComposeView>(R.id.details_content).setContent {
-                // In Compose world
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
                 MaterialTheme {
-                    Greeting("Android")
+                    // In Compose world
+                    Text("Hello Compose!")
                 }
             }
         }

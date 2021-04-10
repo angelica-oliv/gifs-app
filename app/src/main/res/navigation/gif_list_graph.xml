@@ -28,6 +28,6 @@
     <fragment
         android:id="@+id/details_fragment"
         android:name="com.angelicao.details.DetailsFragment"
-        app:moduleName="@string/title_details"
+        app:moduleName="@string/module_details"
         android:label="DetailsFragment" />
 </navigation>
