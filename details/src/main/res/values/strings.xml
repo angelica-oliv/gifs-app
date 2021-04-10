@@ -1,3 +1,4 @@
 <resources>
     <string name="gif_description">Gif image</string>
+    <string name="gif_title">Title:</string>
 </resources>

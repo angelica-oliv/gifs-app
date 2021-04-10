@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/navigate_to_details_fragment"
-            app:destination="@id/details_fragment" />
+            app:destination="@id/details_fragment">
+            <argument
+                android:name="gif"
+                app:argType="com.angelicao.repository.data.Gif" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/favorite_gif_list_fragment"

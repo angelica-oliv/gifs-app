@@ -10,14 +10,28 @@ class GifRepository(private val gifDao: GifDao, private val coroutineDispatcher:
 
     suspend fun favoriteGif(gif: Gif) {
         withContext(coroutineDispatcher) {
-            val favoriteGif = gif.run { FavoriteGif(id = id, url = url, title = title) }
+            val favoriteGif = gif.run {
+                FavoriteGif(
+                    id = id,
+                    url = url,
+                    largerGifUrl = largerGifUrl,
+                    title = title
+                )
+            }
             gifDao.insertAll(favoriteGif)
         }
     }
 
     suspend fun removeFavoriteGif(gif: Gif) {
         withContext(coroutineDispatcher) {
-            val favoriteGif = gif.run { FavoriteGif(id = id, url = url, title = title) }
+            val favoriteGif = gif.run {
+                FavoriteGif(
+                    id = id,
+                    url = url,
+                    largerGifUrl = largerGifUrl,
+                    title = title
+                )
+            }
             gifDao.delete(favoriteGif)
         }
     }
@@ -28,6 +42,7 @@ class GifRepository(private val gifDao: GifDao, private val coroutineDispatcher:
                 Gif(
                     id = favoriteGif.id,
                     url = favoriteGif.url,
+                    largerGifUrl = favoriteGif.largerGifUrl,
                     title = favoriteGif.title,
                     favorite = true
                 )

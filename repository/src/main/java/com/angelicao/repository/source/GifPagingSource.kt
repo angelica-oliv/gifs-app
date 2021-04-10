@@ -42,6 +42,7 @@ class GifPagingSource(
                     Gif(
                         id = gifData.id ?: "",
                         url = gifData.images?.previewGif?.url ?: "",
+                        largerGifUrl = gifData.images?.largerGif?.url ?: "",
                         title = gifData.title ?: "",
                         favorite = favoriteIDs.contains(gifData.id)
                     )

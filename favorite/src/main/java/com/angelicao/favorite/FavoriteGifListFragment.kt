@@ -1,5 +1,6 @@
 package com.angelicao.favorite
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,6 +42,11 @@ class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
         initViews(contentView)
         setObservers()
         return contentView
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().invalidateOptionsMenu()
     }
 
     private fun initViews(contentView: View?) {

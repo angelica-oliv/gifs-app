@@ -16,6 +16,7 @@ ext.versions = [
         'viewModel'         : '2.3.1',
         'recyclerView'      : '1.2.0',
         'glide'             : '4.11.0',
+        'accompanistGlide'  : '0.7.1',
         'koin'              : '2.2.0-beta-1',
         'okhttpLogging'     : '4.4.0',
         'room'              : '2.2.6',

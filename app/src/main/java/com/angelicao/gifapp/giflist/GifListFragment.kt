@@ -35,7 +35,7 @@ class GifListFragment : Fragment() {
         startActivity(shareIntent)
     }
     private val gifItemClick: (Gif) -> Unit = { gif ->
-        val action = GifListFragmentDirections.navigateToDetailsFragment()
+        val action = GifListFragmentDirections.navigateToDetailsFragment(gif = gif)
         findNavController().navigate(action)
     }
 
@@ -48,6 +48,11 @@ class GifListFragment : Fragment() {
         initViews(contentView)
         setObservers()
         return contentView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().invalidateOptionsMenu()
     }
 
     private fun initViews(contentView: View?) {

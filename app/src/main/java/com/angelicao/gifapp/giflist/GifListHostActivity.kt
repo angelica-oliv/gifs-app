@@ -15,12 +15,17 @@ class GifListHostActivity : AppCompatActivity(R.layout.activity_gif_list_host) {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.action_favorite)
+        item.isVisible = findNavController(R.id.main_content).currentDestination?.id == R.id.gif_list_fragment
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_favorite -> {
-            if (findNavController(R.id.main_content).currentDestination?.id == R.id.gif_list_fragment) {
-                val action = GifListFragmentDirections.navigateToFavoriteGifListFragment()
-                findNavController(R.id.main_content).navigate(action)
-            }
+            val action = GifListFragmentDirections.navigateToFavoriteGifListFragment()
+            findNavController(R.id.main_content).navigate(action)
             true
         }
         else -> {

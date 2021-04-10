@@ -1,3 +1,13 @@
 package com.angelicao.repository.data
 
-data class Gif(val id: String, val url: String, val title: String, var favorite: Boolean = false)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Gif(
+    val id: String,
+    val url: String,
+    val largerGifUrl: String,
+    val title: String,
+    var favorite: Boolean = false
+) : Parcelable
