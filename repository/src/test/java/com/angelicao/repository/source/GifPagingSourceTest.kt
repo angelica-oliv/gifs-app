@@ -21,9 +21,9 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
-private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "title", GifImage(GifImageData("http://giphy.com")))))
-private val GIF_DATABASE = listOf(FavoriteGif("123","http://giphy.com", "title"))
-private val GIF_EXPECTED_RESULT = listOf(Gif("123","http://giphy.com", "title"))
+private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "title", GifImage(GifImageData("http://giphy.com"), GifImageData("http://giphy.com")))))
+private val GIF_DATABASE = listOf(FavoriteGif("123","http://giphy.com", "http://giphy.com","title"))
+private val GIF_EXPECTED_RESULT = listOf(Gif("123","http://giphy.com", "http://giphy.com","title"))
 @ExperimentalCoroutinesApi
 class GifPagingSourceTest {
     private val gifRemoteDataSource: GifRemoteDataSource = mockk()

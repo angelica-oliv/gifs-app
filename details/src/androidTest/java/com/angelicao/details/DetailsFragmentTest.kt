@@ -1,48 +1,42 @@
 package com.angelicao.details
 
-import android.content.Intent
+import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.angelicao.repository.data.Gif
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
+private val GIF = Gif(id = "1",
+    url = "test.com",
+    largerGifUrl = "test.com",
+    title = "test",
+    favorite = false)
+
 class DetailsFragmentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Before
+    fun setup() {
+        composeTestRule.setContent {
+            MaterialTheme {
+                GifImageDetails(GIF)
+            }
+        }
+    }
+
     @Test
     fun whenScreenAppears_gifTitleIsDisplayed() {
-        composeTestRule.onNodeWithText("Gif Title").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Title:").assertIsDisplayed()
+        composeTestRule.onNodeWithText(GIF.title).assertIsDisplayed()
     }
 
     @Test
     fun whenScreenAppears_gifImageIsDisplayed() {
-        composeTestRule.onNodeWithContentDescription("Gif Image").assertIsDisplayed()
-    }
-
-    @Test
-    fun whenShareButtonIsClicked_shareIntentStarts() {
-        Intents.init()
-
-        composeTestRule.onNodeWithContentDescription("Share").performClick()
-        intended(hasAction(Intent.ACTION_SEND))
-
-        Intents.release()
-    }
-
-    @Test
-    fun whenFavoriteButtonIsClicked_contentDescriptionChanges() {
-        composeTestRule.onNodeWithContentDescription("Add to Favorite").performClick()
-
-        composeTestRule.onNodeWithContentDescription("Remove from Favorite").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("Gif image").assertIsDisplayed()
     }
 }

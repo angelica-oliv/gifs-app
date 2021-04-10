@@ -12,10 +12,10 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-private val GIF_DATABASE = listOf(FavoriteGif("123","http://giphy.com", "title"))
-private val GIF = Gif("123","http://giphy.com", "title")
-private val FAVORITE_GIF = FavoriteGif("123", "http://giphy.com", "title")
-private val GIF_REPOSITORY_FAVORITE_LIST = listOf(Gif("123","http://giphy.com", "title", true))
+private val GIF_DATABASE = listOf(FavoriteGif("123","http://giphy.com", "http://giphy.com", "title"))
+private val GIF = Gif("123","http://giphy.com", "http://giphy.com", "title")
+private val FAVORITE_GIF = FavoriteGif("123", "http://giphy.com", "http://giphy.com", "title")
+private val GIF_REPOSITORY_FAVORITE_LIST = listOf(Gif("123","http://giphy.com", "http://giphy.com", "title", true))
 @ExperimentalCoroutinesApi
 class GifRepositoryTest {
     private val gifDao = mockk<GifDao>(relaxed = true)

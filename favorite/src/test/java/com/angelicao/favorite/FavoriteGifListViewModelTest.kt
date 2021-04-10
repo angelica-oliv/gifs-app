@@ -14,10 +14,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.RuntimeException
 
 private val FAVORITE_GIF = Gif(id = "1",
     url = "test.com",
+    largerGifUrl = "test.com",
     title = "test",
     favorite = true)
 private val GIF_LIST = listOf(FAVORITE_GIF)

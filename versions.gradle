@@ -25,7 +25,7 @@ ext.versions = [
         'paging'            : '3.0.0-beta03',
         'compose'           : '1.0.0-beta04',
         'junit'             : '4.13.2',
-        'mockk'             : '1.10.2',
+        'mockk'             : '1.11.0',
         'androidXJunit'     : '1.1.2',
         'espressoCore'      : '3.3.0',
         'coreTesting'       : '2.1.0',

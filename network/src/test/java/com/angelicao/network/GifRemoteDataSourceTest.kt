@@ -13,7 +13,8 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "title", GifImage(GifImageData("http://giphy.com")))))
+private val GIF_RESPONSE = GifResponse(listOf(GifData("gif", "123", "title",
+    GifImage(GifImageData("http://giphy.com"), GifImageData("http://giphy.com")))))
 @ExperimentalCoroutinesApi
 class GifRemoteDataSourceTest {
     private val gifAPI = mockk<GifAPI>()

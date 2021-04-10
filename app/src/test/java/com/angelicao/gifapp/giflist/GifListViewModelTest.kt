@@ -18,10 +18,12 @@ import org.junit.Test
 
 private val FAVORITE_GIF = Gif(id = "1",
     url = "test.com",
+    largerGifUrl = "test.com",
     title = "test",
     favorite = true)
 private val GIF = Gif(id = "1",
     url = "test.com",
+    largerGifUrl = "test.com",
     title = "test",
     favorite = false)
 
