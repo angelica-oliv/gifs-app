@@ -23,7 +23,10 @@ testFileDebug:
 	./gradlew testDebug --tests $(file)
 
 androidTestDebug:
+	./gradlew connectedDebugAndroidTest
+
+androidTestDebugModule:
 	./gradlew :$(module):connectedDebugAndroidTest
 
-androidTestFileDebug:
+androidTestFileDebugModule:
 	./gradlew :$(module):connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=$(file)

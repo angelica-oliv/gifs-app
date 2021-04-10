@@ -3,7 +3,7 @@ package com.angelicao.details
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.angelicao.repository.data.Gif
 import org.junit.Before
@@ -37,6 +37,6 @@ class DetailsFragmentTest {
 
     @Test
     fun whenScreenAppears_gifImageIsDisplayed() {
-        composeTestRule.onNodeWithContentDescription("Gif image").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("imageGifDetail").assertIsDisplayed()
     }
 }
