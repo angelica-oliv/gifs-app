@@ -22,9 +22,20 @@ workflows:
     steps:
     - activate-ssh-key@4.0.5:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4: {}
+    - git-clone@5: {}
     - cache-pull@2:
         run_if: false
+    - script@1:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            make install-java-11
+        title: Install Java 11
     - install-missing-android-tools@2.3.8:
         inputs:
         - gradlew_path: $PROJECT_LOCATION/gradlew
@@ -40,11 +51,17 @@ workflows:
             # write your script here
             ./gradlew detekt
         title: Detekt Lint
-    - android-unit-test@1:
+    - script@1:
         inputs:
-        - project_location: $PROJECT_LOCATION
-        - module: $MODULE
-        - variant: $VARIANT
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            make testDebug
+        title: Run Unit Tests
     - deploy-to-bitrise-io@1: {}
     - cache-push@2: {}
   update_bitriseyml:
