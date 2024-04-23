@@ -1,85 +1,85 @@
 app:
-  envs:
-  - PROJECT_LOCATION: .
-    opts:
-      is_expand: false
-  - MODULE: app
-    opts:
-      is_expand: false
-  - VARIANT: debug
-    opts:
-      is_expand: false
+    envs:
+        - PROJECT_LOCATION: .
+          opts:
+            is_expand: false
+        - MODULE: app
+          opts:
+            is_expand: false
+        - VARIANT: debug
+          opts:
+            is_expand: false
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 format_version: "8"
 meta:
-  bitrise.io:
-    stack: linux-docker-android-20.04
+    bitrise.io:
+        stack: linux-docker-android-20.04
 project_type: android
 trigger_map:
-- push_branch: '*'
-  workflow: primary
-- pull_request_source_branch: '*'
-  workflow: primary
+    - push_branch: '*'
+      workflow: primary
+    - pull_request_source_branch: '*'
+      workflow: primary
 workflows:
-  primary:
-    steps:
-    - activate-ssh-key@4.0.5:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@5: {}
-    - cache-pull@2:
-        run_if: false
-    - script@1:
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
+    primary:
+        steps:
+            - activate-ssh-key@4.0.5:
+                run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+            - git-clone@5: {}
+            - cache-pull@2:
+                run_if: false
+            - script@1:
+                inputs:
+                    - content: |-
+                        #!/usr/bin/env bash
+                        # fail if any commands fails
+                        set -e
+                        # debug log
+                        set -x
 
-            make install-java-11
-        title: Install Java 11
-    - install-missing-android-tools@2.3.8:
-        inputs:
-        - gradlew_path: $PROJECT_LOCATION/gradlew
-    - script@1:
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
+                        make install-java-11
+                title: Install Java 11
+            - install-missing-android-tools@2.3.8:
+                inputs:
+                    - gradlew_path: $PROJECT_LOCATION/gradlew
+            - script@1:
+                inputs:
+                    - content: |-
+                        #!/usr/bin/env bash
+                        # fail if any commands fails
+                        set -e
+                        # debug log
+                        set -x
 
-            # write your script here
-            ./gradlew detekt
-        title: Detekt Lint
-    - script@1:
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
+                        # write your script here
+                        ./gradlew detekt
+                title: Detekt Lint
+            - script@1:
+                inputs:
+                    - content: |-
+                        #!/usr/bin/env bash
+                        # fail if any commands fails
+                        set -e
+                        # debug log
+                        set -x
 
-            make testDebug
-        title: Run Unit Tests
-    - deploy-to-bitrise-io@1: {}
-    - cache-push@2: {}
-  update_bitriseyml:
-    steps:
-    - activate-ssh-key@4.0.5:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4: {}
-    - script@1:
-        inputs:
-        - content: |-
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-            chmod +x update-bitrise.sh
-            ./update-bitrise.sh $BITRISE_APP_SLUG $AUTHORIZATION_TOKEN $BITRISE_BUILD_NUMBER
-        title: Add most recent bitrise.yml
-    - deploy-to-bitrise-io@1: {}
+                        make testDebug
+                title: Run Unit Tests
+            - deploy-to-bitrise-io@1: {}
+            - cache-push@2: {}
+    update_bitriseyml:
+        steps:
+            - activate-ssh-key@4.0.5:
+                run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+            - git-clone@4: {}
+            - script@1:
+                inputs:
+                    - content: |-
+                        # fail if any commands fails
+                        set -e
+                        # debug log
+                        set -x
+                        chmod +x update-bitrise.sh
+                        ./update-bitrise.sh $BITRISE_APP_SLUG $AUTHORIZATION_TOKEN $BITRISE_BUILD_NUMBER
+                title: Add most recent bitrise.yml
+            - deploy-to-bitrise-io@1: {}
