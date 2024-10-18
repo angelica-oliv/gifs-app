@@ -13,7 +13,7 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 format_version: "8"
 meta:
     bitrise.io:
-        stack: linux-docker-android-20.04
+        stack: linux-docker-android-22.04
 project_type: android
 trigger_map:
     - push_branch: '*'
