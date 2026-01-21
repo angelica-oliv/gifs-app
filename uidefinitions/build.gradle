@@ -6,8 +6,13 @@ apply from: '../versions.gradle'
 apply from: '../detekt-config.gradle'
 
 android {
+    namespace 'com.angelicao.uidefinitions'
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
+
+    buildFeatures {
+        compose true
+    }
 
     defaultConfig {
         minSdkVersion versions.minSdk
@@ -21,8 +26,6 @@ android {
 
     kotlinOptions {
         jvmTarget = versions.jvmTarget
-        useIR = true
-        freeCompilerArgs += ["-Xallow-jvm-ir-dependencies"]
     }
 
     buildTypes {
@@ -33,7 +36,6 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion kotlin_version
         kotlinCompilerExtensionVersion versions.compose
     }
 }

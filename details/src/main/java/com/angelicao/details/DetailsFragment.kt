@@ -33,7 +33,9 @@ import com.angelicao.uidefinitions.FONT_SIZE_MEDIUM_BOLD
 import com.angelicao.uidefinitions.FONT_SIZE_MEDIUM_NORMAL
 import com.angelicao.uidefinitions.SPACING_MEDIUM
 import com.angelicao.uidefinitions.SPACING_SMALL
-import com.google.accompanist.glide.GlideImage
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 
 class DetailsFragment : Fragment() {
     override fun onCreateView(
@@ -62,6 +64,7 @@ class DetailsFragment : Fragment() {
         ?: throw IllegalStateException("Gif Argument should be passed to Details Screen")
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun GifImageDetails(gif: Gif) {
     Column(
@@ -74,15 +77,14 @@ fun GifImageDetails(gif: Gif) {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .testTag("imageGifDetail"),
-            loading = {
+            model = gif.largerGifUrl,
+            contentDescription = stringResource(id = R.string.gif_description),
+            contentScale = ContentScale.Fit,
+            loading = placeholder {
                 Box(Modifier.fillMaxWidth()) {
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
-            },
-            contentScale = ContentScale.Fit,
-            data = gif.largerGifUrl,
-            contentDescription = stringResource(id = R.string.gif_description),
-            fadeIn = true
+            }
         )
         Spacer(Modifier.size(SPACING_MEDIUM.dp))
         GifTitle(gif)

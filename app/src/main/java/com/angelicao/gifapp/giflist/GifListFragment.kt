@@ -14,7 +14,7 @@ import com.angelicao.gifapp.R
 import com.angelicao.repository.data.Gif
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GifListFragment : Fragment() {
     private val gifListViewModel by viewModel<GifListViewModel>()
@@ -68,9 +68,8 @@ class GifListFragment : Fragment() {
 
     private fun setObservers() {
         lifecycleScope.launch {
-            gifListViewModel.gifList.collectLatest {
-                adapter?.submitData(it)
-                adapter?.notifyDataSetChanged()
+            gifListViewModel.gifList.collectLatest { pagingData ->
+                adapter?.submitData(pagingData)
             }
         }
     }

@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.devtools.ksp'
 apply from: '../versions.gradle'
 apply from: '../detekt-config.gradle'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+    namespace 'com.angelicao.gifapp'
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
 
@@ -53,21 +54,20 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':repository')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$versions.appCompat"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
-    implementation "com.google.android.play:core-ktx:$versions.playcore"
+    implementation "com.google.android.play:feature-delivery:$versions.playcore"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewModel"
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
-    implementation "org.koin:koin-android:$versions.koin"
-    implementation "org.koin:koin-android-viewmodel:$versions.koin"
+    implementation "io.insert-koin:koin-android:$versions.koin"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "androidx.legacy:legacy-support-v4:$versions.androidXLegacy"
     api "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     api "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     api "androidx.navigation:navigation-dynamic-features-fragment:$versions.navigation"
-    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    ksp "com.github.bumptech.glide:ksp:$versions.glide"
     implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
 
     testImplementation "junit:junit:$versions.junit"

@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.devtools.ksp'
 apply from: '../versions.gradle'
 apply from: '../detekt-config.gradle'
 
 android {
+    namespace 'com.angelicao.localdata'
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
 
@@ -26,10 +27,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "androidx.room:room-runtime:$versions.room"
-    kapt "androidx.room:room-compiler:$versions.room"
+    ksp "androidx.room:room-compiler:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
 
     testImplementation "junit:junit:$versions.junit"

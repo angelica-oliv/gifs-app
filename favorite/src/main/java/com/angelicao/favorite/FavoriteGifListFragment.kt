@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.angelicao.favorite.di.FavoriteKoinComponent
 import com.angelicao.repository.data.Gif
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteGifListFragment : Fragment(), FavoriteKoinComponent {
     private val favoriteGifListViewModel by viewModel<FavoriteGifListViewModel>()

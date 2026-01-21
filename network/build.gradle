@@ -1,13 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply from: '../versions.gradle'
 apply from: '../keys.gradle'
 apply from: '../detekt-config.gradle'
 
 android {
+    namespace 'com.angelicao.network'
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
+
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         minSdkVersion versions.minSdk
@@ -37,7 +42,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
